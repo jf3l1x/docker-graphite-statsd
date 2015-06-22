@@ -22,28 +22,22 @@ RUN apt-get -y --force-yes install vim\
  nodejs
 
 # python dependencies
-RUN pip install django==1.3\
+RUN pip install django==1.4\
  python-memcached==1.53\
  django-tagging==0.3.1\
  twisted==11.1.0\
  txAMQP==0.6.2
 
 # install graphite
-RUN git clone -b 0.9.12 https://github.com/graphite-project/graphite-web.git /usr/local/src/graphite-web
-WORKDIR /usr/local/src/graphite-web
-RUN python ./setup.py install
+RUN pip install graphite-web 0.9.13
 ADD scripts/local_settings.py /opt/graphite/webapp/graphite/local_settings.py
 ADD conf/graphite/ /opt/graphite/conf/
 
 # install whisper
-RUN git clone -b 0.9.12 https://github.com/graphite-project/whisper.git /usr/local/src/whisper
-WORKDIR /usr/local/src/whisper
-RUN python ./setup.py install
+RUN pip install whisper 0.9.13
 
 # install carbon
-RUN git clone -b 0.9.12 https://github.com/graphite-project/carbon.git /usr/local/src/carbon
-WORKDIR /usr/local/src/carbon
-RUN python ./setup.py install
+RUN pip install carbon 0.9.13
 
 # install statsd
 RUN git clone -b v0.7.2 https://github.com/etsy/statsd.git /opt/statsd
